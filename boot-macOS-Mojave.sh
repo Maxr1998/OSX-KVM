@@ -13,9 +13,17 @@
 
 MY_OPTIONS="+pcid,+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check"
 
+VFIO="-vga qxl -device vfio-pci,host=0c:00.0,multifunction=on -device vfio-pci,host=0c:00.1"
+USB="-device usb-host,vendorid=0x046d,productid=0xc52b -device usb-host,vendorid=0xfeed,productid=0x6060"
+
+OPTS=""
+#OPTS="$OPTS $VFIO"
+#OPTS="$OPTS $USB"
+
 qemu-system-x86_64 -enable-kvm -m 6144 -cpu Penryn,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,$MY_OPTIONS\
 	  -machine pc-q35-2.11 \
-	  -smp 4,cores=2 \
+	  -smp cpus=8,cores=4,threads=2,sockets=1 \
+	  $OPTS \
 	  -usb -device usb-kbd -device usb-tablet \
 	  -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" \
 	  -drive if=pflash,format=raw,readonly,file=OVMF_CODE.fd \
