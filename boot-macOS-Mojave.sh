@@ -20,9 +20,9 @@ OPTS=""
 #OPTS="$OPTS $VFIO"
 #OPTS="$OPTS $USB"
 
-qemu-system-x86_64 -enable-kvm -m 6144 -cpu Penryn,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,$MY_OPTIONS\
+qemu-system-x86_64 -enable-kvm -m 16384 -cpu Penryn,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,$MY_OPTIONS\
 	  -machine pc-q35-2.11 \
-	  -smp cpus=8,cores=4,threads=2,sockets=1 \
+	  -smp 16,cores=8 \
 	  $OPTS \
 	  -usb -device usb-kbd -device usb-tablet \
 	  -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" \
